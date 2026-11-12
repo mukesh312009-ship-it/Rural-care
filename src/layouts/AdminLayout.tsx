@@ -1,0 +1,89 @@
+import React from 'react';
+import { Outlet, Link, useLocation } from 'react-router-dom';
+import {
+  ShieldCheck,
+  BarChart3,
+  Users,
+  Building2,
+  CalendarCheck,
+  Tent,
+  FileText,
+  UserCheck,
+} from 'lucide-react';
+import { Header } from '../components/navigation/Header';
+import { OfflineBanner } from '../components/common/OfflineBanner';
+import { useLanguage } from '../contexts/LanguageContext';
+import { useAuth } from '../contexts/AuthContext';
+
+export const AdminLayout: React.FC = () => {
+  const { language } = useLanguage();
+  const { user, role } = useAuth();
+  const location = useLocation();
+
+  const links = [
+    { to: '/admin/dashboard', label: language === 'ta' ? 'நிர்வாக பலகை' : 'Admin Analytics', icon: BarChart3 },
+    { to: '/admin/doctors', label: language === 'ta' ? 'மருத்துவர் சரிபார்ப்பு' : 'Doctor Verification', icon: UserCheck },
+    { to: '/admin/facilities', label: language === 'ta' ? 'சுகாதார நிலையங்கள்' : 'Manage Facilities', icon: Building2 },
+    { to: '/admin/appointments', label: language === 'ta' ? 'முன்பதிவு மேலாண்மை' : 'All Appointments', icon: CalendarCheck },
+    { to: '/admin/camps', label: language === 'ta' ? 'மருத்துவ முகாம்கள்' : 'Health Camps Admin', icon: Tent },
+    { to: '/admin/audit', label: language === 'ta' ? 'தணிக்கை பதிவுகள்' : 'Audit Logs', icon: FileText },
+  ];
+
+  return (
+    <div className="min-h-screen bg-slate-50 flex flex-col">
+      <OfflineBanner />
+      <Header />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-1 flex flex-col md:flex-row gap-6">
+        {/* Admin Sidebar */}
+        <aside className="w-full md:w-64 shrink-0">
+          <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 sticky top-24 space-y-4">
+            {/* Admin Badge */}
+            <div className="p-3 bg-teal-50/80 border border-teal-200 rounded-xl space-y-1">
+              <div className="flex items-center gap-2">
+                <div className="w-9 h-9 rounded-full bg-teal-700 text-white font-bold flex items-center justify-center shrink-0">
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+                <div className="min-w-0">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-teal-800">
+                    {role === 'super_admin'
+                      ? (language === 'ta' ? 'தலைமை நிர்வாகி' : 'Super Administrator')
+                      : (language === 'ta' ? 'PHC நிர்வாகி' : 'Facility Administrator')}
+                  </span>
+                  <h3 className="text-sm font-bold text-slate-800 truncate">{user?.full_name}</h3>
+                </div>
+              </div>
+            </div>
+
+            {/* Navigation Menu */}
+            <nav className="space-y-1">
+              {links.map((link) => {
+                const Icon = link.icon;
+                const isActive = location.pathname === link.to;
+                return (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className={`flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition ${
+                      isActive
+                        ? 'bg-teal-700 text-white shadow-sm'
+                        : 'text-slate-600 hover:text-teal-800 hover:bg-slate-100'
+                    }`}
+                  >
+                    <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-white' : 'text-teal-700'}`} />
+                    <span>{link.label}</span>
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+        </aside>
+
+        {/* Admin Main Outlet */}
+        <main className="flex-1 min-w-0">
+          <Outlet />
+        </main>
+      </div>
+    </div>
+  );
+};

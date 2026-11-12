@@ -7,43 +7,51 @@ export default {
   theme: {
     extend: {
       colors: {
-        hazard: {
-          bg: '#080c14',
-          panel: '#0e1626',
-          card: '#131d31',
-          border: '#1f2e4d',
-          borderLight: '#2b3f68',
-          cyan: '#00f0ff',
-          blue: '#0284c7',
-          electric: '#38bdf8',
-          emerald: '#10b981',
-          amber: '#f59e0b',
-          rose: '#ef4444',
-          subtext: '#94a3b8'
+        primary: {
+          50: '#f0fdfa',
+          100: '#ccfbf1',
+          200: '#99f6e4',
+          300: '#5eead4',
+          400: '#2dd4bf',
+          500: '#14b8a6',
+          600: '#0d9488', // Teal Green brand primary
+          700: '#0f766e',
+          800: '#115e59',
+          900: '#134e4a',
+        },
+        secondary: {
+          50: '#f0f9ff',
+          100: '#e0f2fe',
+          200: '#bae6fd',
+          300: '#7dd3fc',
+          400: '#38bdf8',
+          500: '#0ea5e9',
+          600: '#0284c7', // Healthcare Blue brand secondary
+          700: '#0369a1',
+          800: '#075985',
+          900: '#0c4a6e',
+        },
+        surface: {
+          50: '#f8fafc',
+          100: '#f1f5f9',
+          200: '#e2e8f0',
         }
       },
       fontFamily: {
-        mono: ['JetBrains Mono', 'Consolas', 'Fira Code', 'monospace'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: [
+          'Inter',
+          'system-ui',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Segoe UI"',
+          'Roboto',
+          '"Noto Sans Tamil"',
+          'sans-serif'
+        ],
       },
-      keyframes: {
-        pulseGlow: {
-          '0%, 100%': { opacity: '1', boxShadow: '0 0 15px rgba(0, 240, 255, 0.4)' },
-          '50%': { opacity: '0.6', boxShadow: '0 0 5px rgba(0, 240, 255, 0.2)' },
-        },
-        alarmFlash: {
-          '0%, 100%': { backgroundColor: 'rgba(239, 68, 68, 0.15)', borderColor: '#ef4444' },
-          '50%': { backgroundColor: 'rgba(239, 68, 68, 0.35)', borderColor: '#f87171' },
-        },
-        radarSweep: {
-          '0%': { transform: 'rotate(0deg)' },
-          '100%': { transform: 'rotate(360deg)' }
-        }
-      },
-      animation: {
-        pulseGlow: 'pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        alarmFlash: 'alarmFlash 1s ease-in-out infinite',
-        radarSweep: 'radarSweep 4s linear infinite',
+      boxShadow: {
+        soft: '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.04)',
+        card: '0 4px 20px -2px rgba(13, 148, 136, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)',
       }
     },
   },
